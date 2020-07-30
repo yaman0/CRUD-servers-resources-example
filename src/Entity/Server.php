@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ServerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ServerRepository::class)i
@@ -21,16 +22,19 @@ class Server
 
     /**
      * @ORM\Column(type="string", length=39)
+     * @Assert\Regex("/^([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4}|(\d{1,3}\.){3}\d{1,3}/")
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min= 3)
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min= 3)
      */
     private $description;
 
