@@ -8,3 +8,10 @@ services:
     env_file:
       - .env
       - .env.local
+#  symfony:
+#    build:
+#      context: .
+#      dockerfile: ./Dockerfile
+#    ports:
+#      - 80:80
+#      - 443:443
