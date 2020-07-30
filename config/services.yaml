@@ -29,5 +29,10 @@ services:
         arguments:
             $em: "@doctrine.orm.entity_manager"
 
+    App\Controller\ApiController\:
+        resource: '../src/Controller/ApiController/'
+        tags: ['controller.service_arguments']
+        arguments:
+            $em: "@doctrine.orm.entity_manager"
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
