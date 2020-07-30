@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Server{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="title">New Server</h1>
+        {{ include('server/_form.html.twig', {buttonTitle: "Create"})}}
+    </div>
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,16 @@ class Category
      * @ORM\Column(type="string", length=7)
      */
     private $color;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Server::class, mappedBy="category", orphanRemoval=true)
+     */
+    private $servers;
+
+    public function __construct()
+    {
+        $this->servers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,6 +64,37 @@ class Category
     public function setColor(string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Server[]
+     */
+    public function getServers(): Collection
+    {
+        return $this->servers;
+    }
+
+    public function addServer(Server $server): self
+    {
+        if (!$this->servers->contains($server)) {
+            $this->servers[] = $server;
+            $server->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeServer(Server $server): self
+    {
+        if ($this->servers->contains($server)) {
+            $this->servers->removeElement($server);
+            // set the owning side to null (unless already changed)
+            if ($server->getCategory() === $this) {
+                $server->setCategory(null);
+            }
+        }
 
         return $this;
     }

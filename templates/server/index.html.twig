@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h1 class="title float-left">Servers List</h1>
+            </div>
+            <div class="col-6">
+                <a href="{{ path('server.new') }}" class="float-right btn btn-success">new</a>
+            </div>
+        </div>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">Description</th>
+                <th scope="col">Category</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for server in servers %}
+                <tr>
+                    <td>
+                        {{ server.name }}
+                    </td>
+                    <td>
+                        {{ server.address }}
+                    </td>
+                    <td>
+                        {{ server.description }}
+                    </td>
+                    <td>
+                        <span class="square" style="background-color: {{ server.category.color }}"></span>
+                        {{ server.category.name }}
+                    </td>
+                    <td class="action-td">
+                        <a href="{{ path('server.edit', {id: server.id}) }}" class="btn btn-primary">Update</a>
+                        <form method="post" action="{{ path("server.delete", {id: server.id}) }}">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ server.id) }}">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
