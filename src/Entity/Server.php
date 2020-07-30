@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ServerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ServerRepository::class)
+ * @ORM\Entity(repositoryClass=ServerRepository::class)i
+ * @ApiResource()
  */
 class Server
 {
