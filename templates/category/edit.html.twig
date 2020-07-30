@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Category{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="title">Edit Category</h1>
+        {{ include('category/_form.html.twig', {buttonTitle: "Edit"})}}
+    </div>
+{% endblock %}
